@@ -1,6 +1,7 @@
 // player 1 against player 2, the one who reaches to 25 first will win!
 //create the variables to be used in the game to avoid long lines
-let scoreKeeper = 0;
+let scoreKeeper1 = 0;
+let scoreKeeper2 = 0;
 const roll = document.getElementById("roll");
 const hold = document.getElementById("hold");
 const newGame = document.getElementById("newGame");
@@ -17,7 +18,6 @@ roll.style.display = "none";
 hold.style.display = "none";
 
 
-
 newGame.addEventListener("click", gameNew)
 // we define the variable as when ever new game button clicked
 //it should give starting values
@@ -32,7 +32,10 @@ function gameNew() {
     whoPlays = true;
     player1.textContent = "Player 1"
     player2.textContent = "Player 2"
-    scoreKeeper = 0;
+    scoreKeeper1 = 0;
+    scoreKeeper2 = 0;
+    hold.style.display = ""
+
 }
 
 //here is the roll button function
@@ -62,46 +65,48 @@ function gameRoll() {
 // if whoPlays is true than player 1 is playing, 
 // if whoPlays return false than player 2 is playing.
         if (whoPlays == true && diceNo != 1) {
-            scoreKeeper += diceNo;
-            current1.textContent = scoreKeeper;
+            scoreKeeper1 += diceNo;
+            current1.textContent = scoreKeeper1;
             hold.addEventListener("click", ()=>{ 
-                scoreKeeper = 0;
                 score1.textContent = current1.textContent;
                 whoPlays = false;
                 hold.style.display = "none"
                 
             })
-            if (scoreKeeper >= 25) {
+            if (scoreKeeper1 >= 25) {
                 player1.textContent = "Winner!"
-                score1.textContent = scoreKeeper;
+                score1.textContent = scoreKeeper1;
                 roll.style.display = "none";
                 hold.style.display = "none";
-                scoreKeeper = 0;
+                scoreKeeper1 = 0;
              } 
         } else if (whoPlays == false && diceNo != 1) {
-            scoreKeeper += diceNo;
-            current2.textContent = scoreKeeper;
+            scoreKeeper2 += diceNo;
+            current2.textContent = scoreKeeper2;
+            hold.addEventListener("click", ()=>{ 
+                score2.textContent = current2.textContent;
+                whoPlays = true;
+            })
 
-            if (scoreKeeper >= 25) {
+            if (scoreKeeper2 >= 25) {
                 player2.textContent = "Winner!"
-                score2.textContent = scoreKeeper;
+                score2.textContent = scoreKeeper2;
                 roll.style.display = "none";
                 hold.style.display = "none";
-                scoreKeeper = 0;
+                scoreKeeper2 = 0;
                 whoPlays = true
              }
-
         } else if (whoPlays == false && diceNo == 1) {
             score2.textContent = "0";
             current2.textContent = "0";
-            scoreKeeper = 0;
+            scoreKeeper2 = 0;
             whoPlays = true;
-        } else if (whoPlays == true && diceNo == 1) {
+        } 
+        else {
             score1.textContent = "0";
             current1.textContent = "0";
-            scoreKeeper = 0;
+            scoreKeeper1 = 0;
             whoPlays = false;
-
         }
         break    
     }
