@@ -30,7 +30,7 @@ function gameNew() {
     roll.addEventListener("click", gameRoll)
 }
 function gameRoll() {
-    while(parseInt(current1.textContent) < 25) {
+    while(parseInt(current1.textContent) < 25 && parseInt(current2.textContent) < 25) {
 
         let diceNo = Math.floor(Math.random() * 6) + 1;
         if (diceNo == 1) {
@@ -54,17 +54,17 @@ function gameRoll() {
         if (diceNo == 1) {
         // makes the score of that player 0 and gives to next player
         }
-        hold.addEventListener("click", ()=>{ 
-            score1.textContent = current1.textContent;
-            if (whoPlays == true) {whoPlays = false} else {
-                whoPlays = true;
-            }
-            
-        })
+
 
         if (whoPlays == true) {
             scoreKeeper += diceNo;
             current1.textContent = scoreKeeper;
+            hold.addEventListener("click", ()=>{ 
+                scoreKeeper = 0;
+                score1.textContent = current1.textContent;
+                whoPlays = false;
+                
+            })
             if (scoreKeeper >= 25) {
                 player1.textContent = "Winner!"
                 score1.textContent = scoreKeeper;
@@ -76,15 +76,23 @@ function gameRoll() {
         } else {
             scoreKeeper += diceNo;
             current2.textContent = scoreKeeper;
+            hold.addEventListener("click", ()=>{ 
+                scoreKeeper = 0;
+                score2.textContent = current2.textContent;
+                whoPlays = true;
+                
+            })
             if (scoreKeeper >= 25) {
                 player2.textContent = "Winner!"
                 score2.textContent = scoreKeeper;
                 roll.style.display = "none";
                 hold.style.display = "none";
                 scoreKeeper = 0;
+                whoPlays = true
              }
 
         }
+
 
         break    
     }
