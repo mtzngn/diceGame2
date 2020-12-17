@@ -1,20 +1,37 @@
 // player 1 against player 2, the one who reaches to 25 first will win!
 //create the variables to be used in the game to avoid long lines
-let scoreKeeper1 = 0;
-let scoreKeeper2= 0;
+let scoreKeeper = 0;
 const roll = document.getElementById("roll");
 const hold = document.getElementById("hold");
 const newGame = document.getElementById("newGame");
-let score1 = document.getElementById("score1")
-let score2 = document.getElementById("score2")
-let image = document.getElementById("image")
+let score1 = document.getElementById("score1");
+let score2 = document.getElementById("score2");
+let image = document.getElementById("image");
+let current1 = document.getElementById("current1");
+let current2 = document.getElementById("current2");
+let player1 = document.getElementById("player1");
+let player2 = document.getElementById("player2");
+let whoPlays = true;
+//hide the buttons roll and hold before the game starts
+roll.style.display = "none";
+hold.style.display = "none";
 
 
 
-roll.addEventListener("click", gameOn)
+newGame.addEventListener("click", gameNew)
 
-function gameOn() {
-    while(parseInt(score1.textContent) < 25) {
+function gameNew() {
+    roll.style.display = "";
+    hold.style.display = "";
+    score1.textContent = "0"
+    current1.textContent = "0"
+    score2.textContent = "0"
+    current2.textContent = "0"
+    roll.addEventListener("click", gameRoll)
+}
+function gameRoll() {
+    while(parseInt(current1.textContent) < 25) {
+
         let diceNo = Math.floor(Math.random() * 6) + 1;
         if (diceNo == 1) {
             image.src = "./img/dice1.png"
@@ -35,13 +52,40 @@ function gameOn() {
             image.src = "./img/dice6.png"
         }
         if (diceNo == 1) {
+        // makes the score of that player 0 and gives to next player
+        }
+        hold.addEventListener("click", ()=>{ 
+            score1.textContent = current1.textContent;
+            if (whoPlays == true) {whoPlays = false} else {
+                whoPlays = true;
+            }
+            
+        })
+
+        if (whoPlays == true) {
+            scoreKeeper += diceNo;
+            current1.textContent = scoreKeeper;
+            if (scoreKeeper >= 25) {
+                player1.textContent = "Winner!"
+                score1.textContent = scoreKeeper;
+                roll.style.display = "none";
+                hold.style.display = "none";
+                scoreKeeper = 0;
+             } 
+             
+        } else {
+            scoreKeeper += diceNo;
+            current2.textContent = scoreKeeper;
+            if (scoreKeeper >= 25) {
+                player2.textContent = "Winner!"
+                score2.textContent = scoreKeeper;
+                roll.style.display = "none";
+                hold.style.display = "none";
+                scoreKeeper = 0;
+             }
 
         }
-        // scoreKeeper += diceNo;
-        // score.textContent = scoreKeeper;
-        if (scoreKeeper >= 25) {
 
-        }
         break    
     }
 }
