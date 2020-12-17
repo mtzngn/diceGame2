@@ -63,13 +63,15 @@ button {
     margin: 5px 0 5px 0;
     background-color: rgba(0, 241, 222, 0.3);
     border: none;
-    border-radius: 30px;
-    transition: 1s all;
+    border-radius: 8px;
+    transition: 0.5s all;
 
 }
 button:hover {
     background-color: rgba(0, 241, 222, 0.7);
     letter-spacing: 0.5px;
+    border-radius: 5px;
+
 }
 img {
     height:100px;
